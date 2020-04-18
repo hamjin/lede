@@ -26,7 +26,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
-
       - name: Space cleanup
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -41,6 +40,10 @@ jobs:
           df -h
       - name: Update feeds
         run: |
+          git clone -b master --depth 1 https://github.com/coolsnowwolf/lede.git
+          cd lede
+          mv * ../
+          cd ../
           sed -i 's/\"#src-git\"/\"src-git\"/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
