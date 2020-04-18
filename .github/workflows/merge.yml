@@ -37,7 +37,7 @@ jobs:
       env:
           DEBIAN_FRONTEND: noninteractive
       run: |
-        apt-get update && apt-get install curl -y
+        sudo apt-get update && sudo apt-get install curl -y
         git pull https://github.com/coolsnowwolf/lede.git --no-edit --strategy-option ours
         curl -q https://raw.githubusercontent.com/railjty/lede-src/master/.github/workflows/openwrt-ci.yml > ./lede/.github//workflows/openwrt-ci.yml
         curl -q https://raw.githubusercontent.com/railjty/lede-src/master/.github/workflows/merge.yml > ./lede/.github//workflows/merge.yml
