@@ -13,6 +13,8 @@ on:
   push:
     tags:
       - '*'
+  schedule:
+    - cron: 0 0 * * * 
 
 jobs:
 
@@ -52,11 +54,11 @@ jobs:
 
       - name: Make download
         run: |
-          make download -j8
+          make download -j16
           find dl -size -1024c -exec rm -f {} \;
       - name: Compile firmware
         run: |
-          make -j$(nproc) || make -j1 V=s
+          make -j4 || make -j1 V=s
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -75,7 +77,7 @@ jobs:
           path: ./bin/targets/
 
       - name: Create release
-        if: github.event == 'push'
+#        if: github.event == 'push'
         id: create_release
         uses: actions/create-release@v1.0.1
         env:
@@ -87,7 +89,7 @@ jobs:
           prerelease: false      
 
       - name: Upload release asset
-        if: github.event == 'push'
+#        if: github.event == 'push'
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1.0.2
         env:
