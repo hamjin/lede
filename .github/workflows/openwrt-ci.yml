@@ -72,10 +72,10 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: OpenWrt_firmware
-          path: ./bin/targets/
+          path: ./bin/
 
       - name: Create release
-#        if: github.event == 'push'
+        if: github.event == 'watch'
         id: create_release
         uses: actions/create-release@v1.0.1
         env:
@@ -87,11 +87,11 @@ jobs:
           prerelease: false      
 
       - name: Upload release asset
-#        if: github.event == 'push'
+        if: github.event == 'watch'
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/targets/*/*/
+          asset_path: ./bin/*/*/*/
