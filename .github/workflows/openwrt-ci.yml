@@ -75,7 +75,7 @@ jobs:
           path: ./bin/
 
       - name: Create release
-#        if: github.event == 'watch'
+        if: github.event == 'watch'
         id: create_release
         uses: actions/create-release@v1.0.1
         env:
@@ -87,7 +87,7 @@ jobs:
           prerelease: false      
 
       - name: Upload release asset
-#        if: github.event == 'watch'
+        if: github.event == 'watch'
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1.0.2
         env:
